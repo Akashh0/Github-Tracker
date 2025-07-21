@@ -3,17 +3,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 100px auto 0;
+  margin: 40px auto 0;
+  bottom: 100px;
+  right: 50px;
   width: 0%;
   height: 80vh;
   z-index: 2;
 }
 
 .globe-container canvas {
-  width: 95% !important;
-  height: 95% !important;
+  width: 125% !important;
+  height: 125% !important;
   pointer-events: auto; /* ensures interactivity */
-  border-radius: 9999px;
+  border-radius: 100px;
+}
+
+.globe-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
 }
 
 @media (max-width: 768px) {
