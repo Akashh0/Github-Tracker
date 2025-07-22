@@ -5,19 +5,20 @@
   align-items: center;
   margin: 40px auto 0;
   pointer-events: auto; 
-  top: 0px;
-  right: 50px;
+  bottom: 60px;
+  right: 90px;
   width: 0%;
-  height: 80vh;
+  height: 90vh;
   z-index: 2;
+  border: none;
   background: transparent;
 }
 
 .globe-container canvas {
-  width: 100% !important;
-  height: 100% !important;
+  width: 120% !important;
+  height: 120% !important;
   pointer-events: auto; /* ensures interactivity */
-  border-radius: 100px;
+  border-radius: 10px;
 }
 
 .globe-wrapper {

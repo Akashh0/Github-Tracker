@@ -36,10 +36,14 @@ function GlobeView({ userPins = [] }) {
     });
 
     const globe = Globe()(globeRef.current)
-      .globeImageUrl(null)
-      .backgroundColor("rgba(0,0,0,0)") // fully transparent
-      .showGlobe(false)
-      .showAtmosphere(false)
+    .globeImageUrl("//unpkg.com/three-globe/example/img/earth-dark.jpg")
+    .bumpImageUrl("//unpkg.com/three-globe/example/img/earth-topology.png")
+    .backgroundColor("rgba(0,0,0,0)") // transparent
+    .showAtmosphere(true)
+    .atmosphereColor("#00ffff")
+    .atmosphereAltitude(0.15)
+    
+
 
       // Neon Country Polygons
       .polygonsData(countries.features)
@@ -74,7 +78,7 @@ function GlobeView({ userPins = [] }) {
     globe.controls().autoRotate = true;
     globe.controls().autoRotateSpeed = 0.8;
     globe.controls().enableZoom = true;
-    globe.camera().position.z = 250;
+    globe.camera().position.z = 275;
 
     // Renderer styling
     const renderer = globe.renderer();
