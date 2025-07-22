@@ -37,7 +37,7 @@ function GlobeView({ userPins = [] }) {
 
     const globe = Globe()(globeRef.current)
       .globeImageUrl(null)
-      .backgroundColor("#000000") // solid black
+      .backgroundColor("rgba(0,0,0,0)") // fully transparent
       .showGlobe(false)
       .showAtmosphere(false)
 
@@ -78,7 +78,7 @@ function GlobeView({ userPins = [] }) {
 
     // Renderer styling
     const renderer = globe.renderer();
-    renderer.setClearColor("#000000");
+    renderer.setClearColor("rgba(0,0,0,0)", 0); // full transparency
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.8;
 

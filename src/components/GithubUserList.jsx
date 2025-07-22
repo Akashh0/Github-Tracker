@@ -1,21 +1,22 @@
 // src/components/GitHubUserList.jsx
-
 import React from "react";
 import "./GitHubUserList.css";
 
 function GitHubUserList({ users }) {
   return (
-    <div className="user-list">
-      <h2>🌍 Recent GitHub Users</h2>
-      {users.map((user, index) => (
-        <div key={index} className="user-card">
-          <img src={user.avatar} alt="avatar" className="avatar" />
-          <div className="user-info">
-            <div className="username">{user.username}</div>
-            <div className="location">{user.location || "🌐 Unknown"}</div>
+    <div className="github-user-list">
+      <h2 className="list-title">Recent Github Users!</h2>
+      <div className="user-list-box">
+        {users.slice(0, 10).map((user, index) => (
+          <div className="user-entry" key={index}>
+            <img src={user.avatar} alt={user.username} className="user-avatar" />
+            <span className="user-name">{user.username}</span>
+            <span className="user-location">
+              📍 {user.location || "Unknown"}
+            </span>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
