@@ -36,20 +36,22 @@ function GlobeView({ userPins = [] }) {
     });
 
     const globe = Globe()(globeRef.current)
-    .globeImageUrl("//unpkg.com/three-globe/example/img/earth-dark.jpg")
+    .globeImageUrl(null)
+    .showGlobe(true)
+    .globeMaterial(new THREE.MeshPhongMaterial({ color: "#4B0082" })) // dark violet
     .bumpImageUrl("//unpkg.com/three-globe/example/img/earth-topology.png")
     .backgroundColor("rgba(0,0,0,0)") // transparent
     .showAtmosphere(true)
-    .atmosphereColor("#00ffff")
+    .atmosphereColor("white")
     .atmosphereAltitude(0.15)
     
 
 
       // Neon Country Polygons
       .polygonsData(countries.features)
-      .polygonCapColor(() => "rgba(30,30,30,1)")
-      .polygonSideColor(() => "rgba(20,20,20,1)")
-      .polygonStrokeColor(() => "rgba(0,255,255,0.9)")
+      .polygonCapColor(() => "rgba(111, 0, 255, 1)")
+      .polygonSideColor(() => "rgba(217, 0, 224, 1)")
+      .polygonStrokeColor(() => "rgba(153, 0, 255, 0.9)")
       .polygonAltitude(0.01)
 
       // Neon Country Labels
@@ -60,7 +62,7 @@ function GlobeView({ userPins = [] }) {
       .labelSize(0.8)
       .labelDotRadius(0.2)
       .labelAltitude(0.04)
-      .labelColor(() => "#00ffff")
+      .labelColor(() => "white")
       .labelResolution(2);
 
     // Add user pins if available
