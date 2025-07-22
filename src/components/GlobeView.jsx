@@ -4,46 +4,73 @@ import countries from "../data/countries.json";
 import "./GlobeView.css";
 import * as THREE from "three";
 
-function GlobeView() {
+function GlobeView({ userPins = [] }) {
   const globeRef = useRef();
 
   useEffect(() => {
-    // Calculate country center if not available
+    // Fix country center coords for both Polygon and MultiPolygon
     countries.features.forEach((f) => {
-      if (!f.properties.latitude || !f.properties.longitude) {
-        const coords = f.geometry.coordinates[0];
-        const lats = coords.map((c) => c[1]);
-        const lngs = coords.map((c) => c[0]);
-        f.properties.latitude = lats.reduce((a, b) => a + b, 0) / lats.length;
-        f.properties.longitude = lngs.reduce((a, b) => a + b, 0) / lngs.length;
+      const coords = f.geometry.coordinates;
+      let latSum = 0;
+      let lngSum = 0;
+      let count = 0;
+
+      if (f.geometry.type === "Polygon") {
+        coords[0].forEach(([lng, lat]) => {
+          latSum += lat;
+          lngSum += lng;
+          count++;
+        });
+      } else if (f.geometry.type === "MultiPolygon") {
+        coords.forEach((polygon) => {
+          polygon[0].forEach(([lng, lat]) => {
+            latSum += lat;
+            lngSum += lng;
+            count++;
+          });
+        });
       }
+
+      f.properties.latitude = latSum / count;
+      f.properties.longitude = lngSum / count;
     });
 
     const globe = Globe()(globeRef.current)
       .globeImageUrl(null)
-      .backgroundColor("#000000") // solid black background
+      .backgroundColor("#000000") // solid black
       .showGlobe(false)
       .showAtmosphere(false)
 
-      // Polygon Styling
+      // Neon Country Polygons
       .polygonsData(countries.features)
-      .polygonCapColor(() => "rgba(30, 30, 30, 1)")
-      .polygonSideColor(() => "rgba(20, 20, 20, 1)")
-      .polygonStrokeColor(() => "rgba(0, 255, 255, 0.9)")
+      .polygonCapColor(() => "rgba(30,30,30,1)")
+      .polygonSideColor(() => "rgba(20,20,20,1)")
+      .polygonStrokeColor(() => "rgba(0,255,255,0.9)")
       .polygonAltitude(0.01)
 
-      // Country Labels
+      // Neon Country Labels
       .labelsData(countries.features)
-      .labelLat((d) => d.properties.latitude)
-      .labelLng((d) => d.properties.longitude)
-      .labelText((d) => d.properties.ADMIN || "")
+      .labelLat(d => d.properties.latitude)
+      .labelLng(d => d.properties.longitude)
+      .labelText(d => d.properties.ADMIN || "")
       .labelSize(0.8)
       .labelDotRadius(0.2)
-      .labelAltitude(0.04) // ⬅️ Lift higher above globe
-      .labelColor(() => "#00ffff") // neon cyan
+      .labelAltitude(0.04)
+      .labelColor(() => "#00ffff")
       .labelResolution(2);
 
-    // Controls
+    // Add user pins if available
+    if (userPins.length > 0) {
+      globe
+        .pointsData(userPins)
+        .pointLat(d => d.lat)
+        .pointLng(d => d.lng)
+        .pointColor(() => "#ffffff")
+        .pointAltitude(0.03)
+        .pointRadius(0.6);
+    }
+
+    // Camera & Controls
     globe.controls().autoRotate = true;
     globe.controls().autoRotateSpeed = 0.8;
     globe.controls().enableZoom = true;
@@ -55,7 +82,7 @@ function GlobeView() {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.8;
 
-    // Resize to square (responsive)
+    // Responsive square layout
     const updateGlobeSize = () => {
       const size = Math.min(window.innerWidth, window.innerHeight) * 0.65;
       globe.width(size);
@@ -65,7 +92,7 @@ function GlobeView() {
     updateGlobeSize();
     window.addEventListener("resize", updateGlobeSize);
     return () => window.removeEventListener("resize", updateGlobeSize);
-  }, []);
+  }, [userPins]);
 
   return (
     <div className="globe-wrapper">

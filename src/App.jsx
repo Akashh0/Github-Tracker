@@ -1,15 +1,33 @@
-import React from "react";
-import Particles from "./components/Particles/Particles";
-import "./App.css"; // Importing your traditional CSS
+// src/App.jsx
+
+import React, { useEffect, useState } from "react";
+import "./App.css";
+
 import Navbar from "./components/NavBar";
+import Particles from "./components/Particles/Particles";
 import GlobeView from "./components/GlobeView";
 
+import fetchRecentUsers from "./utils/fetchGitHubUsers";
+import { geocodeLocations } from "./utils/geocodeLocations";
+
 function App() {
+  const [userPins, setUserPins] = useState([]);
+
+  useEffect(() => {
+    const fetchAndGeocode = async () => {
+      const users = await fetchRecentUsers();
+      const geocoded = await geocodeLocations(users);
+      setUserPins(geocoded);
+    };
+
+    fetchAndGeocode();
+  }, []);
+
   return (
     <div className="app-container">
-      {/* Fullscreen Particle Background */}
       <Navbar />
-      
+
+      {/* Particles Background */}
       <Particles
         particleColors={["#ffffff"]}
         particleCount={500}
@@ -21,7 +39,9 @@ function App() {
         disableRotation={false}
         className="particle-bg"
       />
-      <GlobeView />
+
+      {/* 3D Globe with User Pins */}
+      <GlobeView userPins={userPins} />
     </div>
   );
 }
