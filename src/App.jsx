@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 
 import Navbar from "./components/NavBar";
-import Particles from "./components/Particles/Particles";
 import GlobeView from "./components/GlobeView";
+import GitHubUserList from "./components/GitHubUserList";
 
 import fetchRecentUsers from "./utils/fetchGitHubUsers";
 import { geocodeLocations } from "./utils/geocodeLocations";
@@ -26,22 +26,14 @@ function App() {
   return (
     <div className="app-container">
       <Navbar />
-
-      {/* Particles Background */}
-      <Particles
-        particleColors={["#ffffff"]}
-        particleCount={500}
-        particleSpread={8}
-        speed={0.1}
-        particleBaseSize={100}
-        moveParticlesOnHover={true}
-        alphaParticles={false}
-        disableRotation={false}
-        className="particle-bg"
-      />
-
-      {/* 3D Globe with User Pins */}
-      <GlobeView userPins={userPins} />
+      <div className="main-content">
+        <div className="globe-container">
+          <GlobeView userPins={userPins} />
+        </div>
+        <div className="userlist-container">
+          <GitHubUserList users={userPins} />
+        </div>
+      </div>
     </div>
   );
 }

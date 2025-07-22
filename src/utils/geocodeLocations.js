@@ -1,15 +1,25 @@
-// src/utils/geocodeLocations.js
-
 const GEOCODE_API_KEY = import.meta.env.VITE_GEOCODE_API_KEY;
+
 export async function geocodeLocations(users) {
   const geocodedUsers = [];
 
   for (const user of users) {
-    if (!user.location) continue;
+    // If no location, assign default placeholder (0, 0)
+    if (!user.location) {
+      geocodedUsers.push({
+        ...user,
+        lat: 0,
+        lng: 0,
+        note: "No location provided",
+      });
+      continue;
+    }
 
     try {
       const response = await fetch(
-        `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(user.location)}&key=${GEOCODE_API_KEY}`
+        `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
+          user.location
+        )}&key=${GEOCODE_API_KEY}`
       );
 
       const data = await response.json();
@@ -31,6 +41,6 @@ export async function geocodeLocations(users) {
     }
   }
 
-  console.log("📍 Geocoded Users:", geocodedUsers);
+  console.log("📍 Geocoded Users (with defaults):", geocodedUsers);
   return geocodedUsers;
 }
