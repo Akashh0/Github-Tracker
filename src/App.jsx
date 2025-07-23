@@ -9,62 +9,64 @@ import fetchRecentUsers from "./utils/fetchGitHubUsers";
 import { geocodeLocations } from "./utils/geocodeLocations";
 import { fetchPushActivity } from "./utils/FetchPushActivity";
 import { getRandomLatLng } from "./utils/getRandomLatLng"; 
+import RepoSearch from "./components/RepoSearch";
+import { fetchRepoCommits } from "./utils/fetchRepoCommits";
+
 
 function App() {
   const [userPins, setUserPins] = useState([]);
   const [pushActivity, setPushActivity] = useState([]);
   const [pushArcs, setPushArcs] = useState([]);
+  const [loading, setLoading] = useState(true); 
+  const [commits, setCommits] = useState([]);
 
-  useEffect(() => {
-  const generatePushArcs = async () => {
-    const users = await fetchRecentUsers();
-    const geocoded = await geocodeLocations(users);
-    setUserPins(geocoded);
-
-    // Simulate a push arc per user
-    const arcs = geocoded.map((user) => {
-      const { lat, lng } = user;
-      const { lat: endLat, lng: endLng } = getRandomLatLng(); // 👈 from helper
-      return {
-        startLat: lat,
-        startLng: lng,
-        endLat,
-        endLng,
-        color: ["#ffffffff", "#ff00ff"],
+  const handleRepoSearch = async (repoName) => {
+      const commitData = await fetchRepoCommits(repoName);
+      setCommits(commitData);
       };
-    });
 
-    setPushArcs(arcs);
-  };
-
-  generatePushArcs();
-}, []);
 
   useEffect(() => {
-    const fetchAndGeocode = async () => {
+    const fetchAll = async () => {
+      setLoading(true); // 🔹 Start loading
+
       const users = await fetchRecentUsers();
       const geocoded = await geocodeLocations(users);
       setUserPins(geocoded);
-    };
 
-    const fetchPushStats = async () => {
       const activity = await fetchPushActivity();
-      console.log("🟢 GitHub Push Activity Fetched:", activity); // ✅ Logging here
       setPushActivity(activity);
+
+      
+
+
+      // Arcs for each user
+      const arcs = geocoded.map((user) => {
+        const { lat, lng } = user;
+        const { lat: endLat, lng: endLng } = getRandomLatLng();
+        return {
+          startLat: lat,
+          startLng: lng,
+          endLat,
+          endLng,
+          color: ["#ffffffff", "#ff00ff"],
+        };
+      });
+
+      setPushArcs(arcs);
+      setLoading(false); // 🔹 Done loading
     };
 
-    fetchAndGeocode();
-    fetchPushStats();
+    fetchAll();
   }, []);
 
   return (
     <div className="app-container">
       <Navbar />
       <header className="intro-header">
-        <h1 className="intro-text">
-          Explore Real-Time GitHub Activity Around the World!
-        </h1>
+        <h1 className="intro-text">Explore Real-Time GitHub Activity Around the World!</h1>
       </header>
+
       <LightRays
         raysOrigin="top-center"
         raysColor="#00ffff"
@@ -77,17 +79,30 @@ function App() {
         distortion={0.05}
         className="custom-rays"
       />
-      <div className="main-content">
-        <div className="globe-list-wrapper">
-          <div className="globe-container">
-            <GlobeView userPins={userPins} pushArcs={pushArcs} />
+
+      {loading ? (
+        <div className="loading-container">
+          <div className="spinner" />
+          <p className="loading-text">Loading GitHub activity...</p>
+        </div>
+      ) : (
+        <div className="main-content">
+          <div className="globe-list-wrapper">
+            <div className="globe-container">
+              <GlobeView userPins={userPins} pushArcs={pushArcs} />
+            </div>
+            <GitHubUserList users={userPins} />
           </div>
-          <GitHubUserList users={userPins} />
+          
+          <div className="timeline-wrapper">
+            <GitHubActivityTimeline activityData={pushActivity} />
+          </div>
+
+          <div className="repo-search-wrapper">
+            <RepoSearch onSearch={handleRepoSearch} commits={commits} />
+          </div>
         </div>
-        <div className="timeline-wrapper">
-          <GitHubActivityTimeline activityData={pushActivity} />
-        </div>
-      </div>
+      )}
     </div>
   );
 }

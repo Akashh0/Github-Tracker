@@ -80,7 +80,56 @@
   z-index: 2;
 }
 
+.loading-container {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
 
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid rgba(0, 255, 255, 0.2);
+  border-top: 6px solid #00ffff;
+  border-radius: 50%;
+  animation: spin 1.1s linear infinite;
+}
+
+.loading-text {
+  margin-top: 16px;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #ffffff;
+  text-shadow: 0 0 6px #00ffff;
+}
+
+.repo-search-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  top: 60vh;
+  align-items: center;
+  text-align: center;
+  justify-content:center;
+  padding: 1rem 0 2rem;
+  z-index: 3;
+}
+
+.repo-heading {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #00ffff;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
