@@ -49,8 +49,8 @@ function GlobeView({ userPins = [] }) {
 
       // Neon Country Polygons
       .polygonsData(countries.features)
-      .polygonCapColor(() => "rgba(111, 0, 255, 1)")
-      .polygonSideColor(() => "rgba(217, 0, 224, 1)")
+      .polygonCapColor(() => "rgba(112, 0, 163, 1)")
+      .polygonSideColor(() => "rgba(107, 0, 110, 1)")
       .polygonStrokeColor(() => "rgba(153, 0, 255, 0.9)")
       .polygonAltitude(0.01)
 
