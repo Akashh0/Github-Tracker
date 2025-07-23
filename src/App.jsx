@@ -1,17 +1,21 @@
-// src/App.jsx
-
 import React, { useEffect, useState } from "react";
 import "./App.css";
-
 import Navbar from "./components/NavBar";
 import GlobeView from "./components/GlobeView";
 import GitHubUserList from "./components/GitHubUserList";
-import LightRays from "./components/LightRays/LightRays"
+import GitHubActivityTimeline from "./components/GitHubActivityTimeline";
+import LightRays from "./components/LightRays/LightRays";
 import fetchRecentUsers from "./utils/fetchGitHubUsers";
 import { geocodeLocations } from "./utils/geocodeLocations";
 
 function App() {
   const [userPins, setUserPins] = useState([]);
+
+  const dummyActivity = Array.from({ length: 24 }, (_, i) => ({
+    hour: `${i}:00`,
+    pushes: Math.floor(Math.random() * 20),
+  }));
+
 
   useEffect(() => {
     const fetchAndGeocode = async () => {
@@ -30,23 +34,26 @@ function App() {
         <h1 className="intro-text">Explore Real-Time GitHub Activity Around the World!</h1>
       </header>
       <LightRays
-      raysOrigin="top-center"
-      raysColor="#00ffff"
-      raysSpeed={1.5}
-      lightSpread={0.8}
-      rayLength={1.2}
-      followMouse={true}
-      mouseInfluence={0.1}
-      noiseAmount={0.1}
-      distortion={0.05}
-      className="custom-rays"
+        raysOrigin="top-center"
+        raysColor="#00ffff"
+        raysSpeed={1.5}
+        lightSpread={0.8}
+        rayLength={1.2}
+        followMouse={true}
+        mouseInfluence={0.1}
+        noiseAmount={0.1}
+        distortion={0.05}
+        className="custom-rays"
       />
       <div className="main-content">
-        <div className="globe-container">
-          <GlobeView userPins={userPins} />
-        </div>
-        <div className="userlist-container">
+        <div className="globe-list-wrapper">
+          <div className="globe-container">
+            <GlobeView userPins={userPins} />
+          </div>
           <GitHubUserList users={userPins} />
+        </div>
+        <div className="timeline-wrapper">
+          <GitHubActivityTimeline activityData={dummyActivity} />
         </div>
       </div>
     </div>

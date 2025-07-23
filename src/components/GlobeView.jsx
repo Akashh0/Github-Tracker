@@ -84,7 +84,7 @@ function GlobeView({ userPins = [] }) {
 
     // Renderer styling
     const renderer = globe.renderer();
-    renderer.setClearColor("rgba(0,0,0,0)", 0); // full transparency
+    renderer.setClearColor("#000000", 0); // black, fully transparent
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.8;
 
