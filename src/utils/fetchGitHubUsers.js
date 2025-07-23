@@ -1,6 +1,4 @@
-// src/utils/fetchGitHubUsers.js
-
-const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN; // ⬅️ load from .env
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
 const headers = {
   Authorization: `token ${GITHUB_TOKEN}`,
@@ -8,43 +6,44 @@ const headers = {
 };
 
 export async function fetchRecentUsers(limit = 10) {
+  const uniqueUsers = [];
+  const seenUsernames = new Set();
+  let page = 1;
+
   try {
-    const res = await fetch("https://api.github.com/events", { headers });
-    if (!res.ok) throw new Error("GitHub Events API failed");
+    while (uniqueUsers.length < limit && page <= 5) {
+      const res = await fetch(`https://api.github.com/events?page=${page}`, { headers });
+      if (!res.ok) throw new Error("GitHub Events API failed");
+      const data = await res.json();
 
-    const data = await res.json();
-    const uniqueUsers = [];
+      for (const event of data) {
+        const username = event.actor?.login;
+        const avatar = event.actor?.avatar_url;
 
-    for (const event of data) {
-      const username = event.actor?.login;
-      const avatar = event.actor?.avatar_url;
+        if (!username || seenUsernames.has(username)) continue;
 
-      if (!username || uniqueUsers.find((u) => u.username === username)) continue;
+        const profileRes = await fetch(`https://api.github.com/users/${username}`, { headers });
+        if (!profileRes.ok) continue;
 
-      // Fetch user profile
-      const profileRes = await fetch(`https://api.github.com/users/${username}`, { headers });
+        const profile = await profileRes.json();
+        const location = profile.location?.trim();
 
-      if (!profileRes.ok) {
-        console.warn(`❌ Skipping ${username} (API limit or missing):`, profileRes.status);
-        continue;
+        if (!location || location === "-" || location.length < 2) continue;
+
+        uniqueUsers.push({ username, avatar, location });
+        seenUsernames.add(username);
+
+        if (uniqueUsers.length >= limit) break;
       }
 
-      const profile = await profileRes.json();
-
-      uniqueUsers.push({
-        username,
-        avatar,
-        location: profile.location || null,
-      });
-
-      if (uniqueUsers.length >= limit) break;
+      page++;
     }
 
-    console.log("📍 Fetched GitHub Users with location:", uniqueUsers);
+    console.log("✅ Final User List with Location:", uniqueUsers);
     return uniqueUsers;
   } catch (error) {
     console.error("🔥 Error fetching GitHub users:", error);
-    return [];
+    return uniqueUsers;
   }
 }
 

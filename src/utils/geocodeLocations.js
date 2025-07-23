@@ -4,22 +4,17 @@ export async function geocodeLocations(users) {
   const geocodedUsers = [];
 
   for (const user of users) {
-    // If no location, assign default placeholder (0, 0)
-    if (!user.location) {
-      geocodedUsers.push({
-        ...user,
-        lat: 0,
-        lng: 0,
-        note: "No location provided",
-      });
+    const location = user.location;
+
+    // ❌ Skip users with no or invalid location
+    if (!location || location === "-" || location.trim() === "") {
+      console.warn(`⚠️ Skipping user with missing location: ${user.username}`);
       continue;
     }
 
     try {
       const response = await fetch(
-        `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
-          user.location
-        )}&key=${GEOCODE_API_KEY}`
+        `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(location)}&key=${GEOCODE_API_KEY}`
       );
 
       const data = await response.json();
@@ -28,19 +23,25 @@ export async function geocodeLocations(users) {
       if (firstResult) {
         const { lat, lng } = firstResult.geometry;
 
+        // ⛔ Skip bad coordinates near (0,0) ocean
+        if (Math.abs(lat) < 1 && Math.abs(lng) < 1) {
+          console.warn(`🧊 Skipping near-zero coords for: ${user.username} → (${lat}, ${lng})`);
+          continue;
+        }
+
         geocodedUsers.push({
           ...user,
           lat,
           lng,
         });
       } else {
-        console.warn(`⚠️ Could not geocode: ${user.location}`);
+        console.warn(`⚠️ No geocode results for: ${location}`);
       }
     } catch (error) {
-      console.error(`❌ Error geocoding ${user.location}:`, error);
+      console.error(`❌ Geocoding failed for ${location}:`, error);
     }
   }
 
-  console.log("📍 Geocoded Users (with defaults):", geocodedUsers);
+  console.log("📍 Final Geocoded Users:", geocodedUsers);
   return geocodedUsers;
 }

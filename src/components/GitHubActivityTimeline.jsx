@@ -15,9 +15,9 @@ import "./GitHubActivityTimeline.css";
 const GitHubActivityTimeline = ({ activityData }) => {
   return (
     <div className="activity-timeline-container">
-      <h2 className="timeline-heading">GitHub Push Activity (Last 24 Hours)</h2>
+      <h2 className="timeline-heading">GitHub Contributions Timeline</h2>
       <div className="chart-wrapper">
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={500}>
           <BarChart data={activityData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#444" />
             <XAxis dataKey="hour" stroke="#ccc" />
