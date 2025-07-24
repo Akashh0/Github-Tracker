@@ -4,7 +4,7 @@
   border-top: 1px solid rgb(255, 255, 255);
   color: #ccc;
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 2rem 1rem; /* Desktop padding */
   font-size: 0.9rem;
   margin-top: 2rem;
   z-index: 2;
@@ -30,4 +30,10 @@
 
 .footer-links {
   margin-top: 0.3rem;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 1.5rem 0.8rem; /* ⬅ Adjusted padding for mobile view */
+  }
 }

@@ -41,7 +41,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 2rem 1rem;
+  padding: 2rem 1rem; /* Desktop padding */
   z-index: 2;
 }
 
@@ -52,7 +52,6 @@
   justify-content: flex-start;
   z-index: 1;
   width: 100%;
-  padding: 1.5rem 0;
 }
 
 .globe-list-wrapper {
@@ -139,7 +138,6 @@
     font-size: 1.8rem;
   }
   .intro-header {
-    margin-top: 30px;
     padding-bottom: 0px;
   }
   .repo-search-form {
@@ -171,10 +169,15 @@
     height: auto !important;
     margin-top: 0;
   }
+  .music-wrapper {
+    padding: 0; /* ⬅ Removed padding for mobile to allow component to center fully */
+  }
   .music-player-container {
-    width: 95%;
+    width: 95%; /* ⬅ Keeps width at 95% for mobile */
+    box-sizing: border-box; /* ⬅ Crucial: Ensures padding is included in the width calculation */
+    padding: 1.5rem; /* ⬅ Explicitly set padding for mobile here */
   }
   .repo-search-wrapper {
-    padding: 0; /* ⬅ Removed padding for mobile to allow component to center fully */
+    padding: 0;
   }
 }

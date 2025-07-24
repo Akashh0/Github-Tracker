@@ -2,16 +2,15 @@
   width: 100%;
   max-width: 450px;
   height: auto;
-  border: 1px solid rgba(255, 255, 255, 0.555);
   border-radius: 16px;
-  background: rgba(20, 20, 20, 0.35);
+  background: transparent;
   backdrop-filter: blur(10px);
   padding-bottom: 1.2rem;
   z-index: 2;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   margin-top: 0;
 }
 

@@ -97,7 +97,7 @@ function GlobeView({ userPins = [], pushArcs = [] }) {
     globe.controls().autoRotate = true;
     globe.controls().autoRotateSpeed = 0.8;
     globe.controls().enableZoom = true;
-    globe.camera().position.z = 275;
+    globe.camera().position.z = 295;
 
     const renderer = globe.renderer();
     renderer.setClearColor("#000000", 0);

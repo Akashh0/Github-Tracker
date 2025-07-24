@@ -3,12 +3,20 @@ import "./RepoSearch.css";
 
 function RepoSearch({ onSearch, commits }) {
   const [repoInput, setRepoInput] = useState("");
+  // New state to control the visibility of the commits display
+  const [showCommitsDisplay, setShowCommitsDisplay] = useState(false); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (repoInput.trim()) {
       onSearch(repoInput.trim());
+      setShowCommitsDisplay(true); // Show the commits display after a new search
     }
+  };
+
+  // Function to hide the commits display
+  const handleCloseCommits = () => {
+    setShowCommitsDisplay(false);
   };
 
   return (
@@ -17,16 +25,21 @@ function RepoSearch({ onSearch, commits }) {
       <form className="repo-search-form" onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Search a repository (e.g., vercel/next.js)"
+          placeholder="Search a repository (e.g., Akashh0/Resumate)"
           value={repoInput}
           onChange={(e) => setRepoInput(e.target.value)}
         />
         <button type="submit">Search</button>
       </form>
 
-      {commits?.length > 0 && (
+      {/* Conditionally render the commits display based on commits and showCommitsDisplay state */}
+      {commits?.length > 0 && showCommitsDisplay && (
         <div className="commits-display">
           <h3 className="commits-heading">Recent Commits</h3>
+          {/* Close button */}
+          <button className="close-commits-button" onClick={handleCloseCommits}>
+            &times; {/* HTML entity for 'X' mark */}
+          </button>
           <ul className="commit-list">
             {commits.map((commit, index) => (
               <li key={index} className="commit-item">
