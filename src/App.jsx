@@ -12,6 +12,7 @@ import { getRandomLatLng } from "./utils/getRandomLatLng";
 import RepoSearch from "./components/RepoSearch";
 import { fetchRepoCommits } from "./utils/fetchRepoCommits";
 import MusicPlayer from "./components/MusicPlayer";
+import Footer from "./components/Footer";
 
 
 
@@ -71,10 +72,10 @@ function App() {
 
       <LightRays
         raysOrigin="top-center"
-        raysColor="#00ffff"
+        raysColor="#ffffffff"
         raysSpeed={1.5}
-        lightSpread={0.8}
-        rayLength={1.2}
+        lightSpread={1.5}
+        rayLength={2.5}
         followMouse={true}
         mouseInfluence={0.1}
         noiseAmount={0.1}
@@ -105,8 +106,9 @@ function App() {
           </div>
 
           <div className="music-wrapper">
-  <MusicPlayer />
-</div>
+            <MusicPlayer />
+          </div>
+          <Footer />
         </div>
       )}
     </div>
