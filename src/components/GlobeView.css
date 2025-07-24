@@ -5,18 +5,17 @@
   align-items: center;
   width: 100%;
   max-width: 1000px;
-  bottom: 90px;
-  height: 90vh;
+  height: 95vh;
   z-index: 2;
-  overflow: hidden; /* ⛔ prevents globe from spilling out of bounds */
+  overflow: hidden;
 }
 
 .globe-container canvas {
-  width: 125% !important; /* ✔️ your custom zoom */
-  height: 125% !important;
+  width: 130% !important;
+  height: 130% !important;
   pointer-events: auto;
   border-radius: 10px;
-  transform: translateX(-15.5%); /* 💡 shifts the globe left to re-center it visually */
+  transform: none;
 }
 
 .globe-wrapper {
@@ -28,15 +27,16 @@
   background: transparent;
 }
 
-/* 📱 Mobile View Fix */
+/* Mobile View Fix */
 @media (max-width: 768px) {
-    .globe-container {
-    height: 60vh;
+  .globe-container {
+    height: 65vh;
     width: 100%;
-    order: 1; /* 👈 render first */
+    order: 1; /* ⬅ Renders the globe first */
   }
   .globe-container canvas {
-    width: 100% !important;
-    height: 100% !important;
+    width: 110% !important;
+    height: 110% !important;
+    transform: none;
   }
 }
