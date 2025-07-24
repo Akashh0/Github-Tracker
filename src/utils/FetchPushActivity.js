@@ -5,6 +5,7 @@ const headers = {
   Accept: "application/vnd.github+json",
 };
 
+
 export async function fetchPushActivity(userLimit = 10) {
   try {
     const eventsRes = await fetch("https://api.github.com/events", { headers });
