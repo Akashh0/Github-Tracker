@@ -9,10 +9,10 @@
 }
 
 .intro-header {
-  margin-top: 80px;
+  margin-top: 80px; /* Desktop margin-top */
   width: 100%;
   background: transparent;
-  padding: 20px 0 10px;
+  padding: 20px 0 10px; /* Desktop padding: 10px at bottom */
   text-align: center;
   z-index: 1;
 }
@@ -138,7 +138,9 @@
   .intro-text {
     font-size: 1.8rem;
   }
-
+  .intro-header {
+    padding-bottom: 0px; /* ⬅ Reduced space below intro header */
+  }
   .repo-search-form {
     flex-direction: column;
     width: 100%;
@@ -151,6 +153,7 @@
     flex-direction: column; /* Mobile: Stacks components vertically */
     align-items: center; /* Mobile: Centers components horizontally */
     gap: 0; /* Mobile: No gap between components */
+    padding: 0 1rem;
     height: auto;
   }
   .globe-container {

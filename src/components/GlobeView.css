@@ -5,7 +5,7 @@
   align-items: center;
   width: 100%;
   max-width: 1000px;
-  height: 650px; /* Desktop height matches list visually */
+  height: 600px; /* Desktop height matches list visually */
   z-index: 2;
   overflow: hidden; /* Keeps content within bounds */
 }
@@ -15,19 +15,19 @@
   height: 100% !important; /* Desktop: Ensures full visibility */
   pointer-events: auto;
   border-radius: 10px;
-  transform: none;
+  transform: none; /* No transform for desktop */
 }
 
 /* Mobile View Fix */
 @media (max-width: 768px) {
   .globe-container {
-    height: 65vh; /* Mobile height */
+    height: 45vh; /* Mobile height */
     width: 100%;
     order: 1; /* Ensures globe is displayed first on mobile */
   }
   .globe-container canvas {
-    width: 100% !important; /* ⬅ Adjusted to 100% for full visibility and centering on mobile */
-    height: 100% !important; /* ⬅ Adjusted to 100% for full visibility and centering on mobile */
-    transform: none;
+    width: 100% !important; /* Ensures full visibility on mobile */
+    height: 100% !important; /* Ensures full visibility on mobile */
+    transform: translateX(-5%); /* ⬅ Pushes the globe slightly left on mobile */
   }
 }

@@ -1,7 +1,7 @@
 .github-user-list {
   width: 100%;
   max-width: 450px;
-  height: auto; /* List height adjusts to its content on desktop */
+  height: auto;
   border: 1px solid rgba(255, 255, 255, 0.555);
   border-radius: 16px;
   background: rgba(20, 20, 20, 0.35);
@@ -70,8 +70,14 @@
 @media (max-width: 768px) {
   .github-user-list {
     width: 90%; /* Mobile: Takes 90% width */
-    max-width: 100%;
+    max-width: 450px; /* Ensures it doesn't exceed desktop's max-width */
     margin-top: 0;
     order: 2; /* Ensures list is displayed second on mobile */
+  }
+
+  .user-entry {
+    flex-direction: row; /* ⬅ Ensures horizontal layout like desktop */
+    align-items: center; /* ⬅ Ensures vertical alignment like desktop */
+    /* Other properties like gap, padding are already inherited from desktop styles */
   }
 }
