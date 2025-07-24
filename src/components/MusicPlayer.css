@@ -1,0 +1,15 @@
+.music-player-container {
+  width: 90%;
+  max-width: 500px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1.5rem;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 0 10px #00ffff88;
+  backdrop-filter: blur(12px);
+}
+
+.music-player-container h2 {
+  color: #00ffff;
+  margin-bottom: 1rem;
+}

@@ -5,7 +5,7 @@
   margin: 2rem auto;
   width: 100%;
   max-width: 1400px;
-  box-shadow: 0 0 15px rgb(70, 69, 69);
+  border: 1px solid #ccc;
   display: flex;
   flex-direction: column;
 }
@@ -29,7 +29,7 @@
 
 .repo-search-form input {
   flex: 1;
-  padding: 10px;
+  padding: 15px;
   border-radius: 20px;
   background-color: transparent;
   backdrop-filter: blur(10px);

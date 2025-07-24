@@ -1,7 +1,7 @@
 .app-container {
   width: 100vw;
   height: 100vh;
-  background-color: black;
+  background-color: rgb(20, 12, 12);
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
@@ -29,14 +29,25 @@
 }
 
 .custom-rays {
-  position: absolute;
+  position: fixed;         /* 🔒 fixed instead of absolute */
   top: 0;
   left: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;            /* 👈 behind all other components */
   pointer-events: none;
 }
+
+.music-wrapper {
+  position: relative;
+  top: 60vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-bottom: 2rem;
+  z-index: 2;
+}
+
 
 /* FLEX layout container */
 .main-content {
@@ -108,9 +119,10 @@
 
 .repo-search-wrapper {
   position: relative;
+  left: 30px;
+  top: 60vh;
   width: 100%;
   display: flex;
-  top: 60vh;
   align-items: center;
   text-align: center;
   justify-content:center;

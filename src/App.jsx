@@ -11,6 +11,8 @@ import { fetchPushActivity } from "./utils/FetchPushActivity";
 import { getRandomLatLng } from "./utils/getRandomLatLng"; 
 import RepoSearch from "./components/RepoSearch";
 import { fetchRepoCommits } from "./utils/fetchRepoCommits";
+import MusicPlayer from "./components/MusicPlayer";
+
 
 
 function App() {
@@ -101,6 +103,10 @@ function App() {
           <div className="repo-search-wrapper">
             <RepoSearch onSearch={handleRepoSearch} commits={commits} />
           </div>
+
+          <div className="music-wrapper">
+  <MusicPlayer />
+</div>
         </div>
       )}
     </div>
