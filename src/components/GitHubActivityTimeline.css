@@ -1,6 +1,5 @@
-/* src/components/GitHubActivityTimeline.css */
-
 .activity-timeline-container {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   width: 100%;
   max-width: 1500px;
   height: auto;
@@ -22,4 +21,18 @@
 .chart-wrapper {
   width: 100%;
   height: 100%;
+}
+
+@media (max-width: 768px) {
+  .activity-timeline-container {
+    width: 100%; /* ⬅ Makes the component responsive on mobile */
+    max-width: 500px; /* Ensures it scales up to 100% of available mobile width */
+    box-sizing: border-box; /* Ensures padding is included in the width calculation */
+    transform: translateX(-5.5%);
+    /* margin: 0 auto; - Not strictly needed if parent uses align-items: center, but can reinforce */
+  }
+
+  .timeline-heading {
+    text-align: center; /* ⬅ Centers the "GitHub Contributions Timeline" heading on mobile */
+  }
 }

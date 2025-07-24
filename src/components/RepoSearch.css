@@ -51,3 +51,27 @@
   cursor: pointer;
   color: rgb(255, 255, 255);
 }
+
+@media (max-width: 768px) {
+  .repo-search-box {
+    width: 90%; /* ⬅ Reduced width to prevent overflow and allow centering */
+    max-width: 100%; /* Ensures it scales correctly on mobile */
+    padding: 1.5rem; /* ⬅ Adjusted padding for mobile screens */
+    margin: 1.5rem auto; /* Adjusted margin for mobile, and auto helps centering */
+    box-sizing: border-box; /* ⬅ Crucial: Ensures padding is included in the width */
+  }
+
+  .repo-search-heading {
+    text-align: center; /* ⬅ Centers the heading on mobile */
+  }
+
+  .repo-search-form {
+    flex-direction: column; /* Ensures search input and button stack vertically */
+    gap: 0.8rem; /* Adjusted gap for mobile */
+  }
+
+  .repo-search-form input {
+    width: 90%; /* Make input take full width of its container */
+    min-width: unset; /* Remove min-width override for better mobile scaling */
+  }
+}
