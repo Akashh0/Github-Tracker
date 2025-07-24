@@ -57,10 +57,10 @@
 
 .globe-list-wrapper {
   display: flex;
-  flex-direction: row; /* ⬅ Desktop: Aligned side-by-side */
+  flex-direction: row; /* Desktop: Aligns globe and list side-by-side */
   justify-content: center;
-  align-items: flex-start; /* Aligns them at the top */
-  gap: 2rem; /* ⬅ Desktop: Adds a gap between components */
+  align-items: flex-start; /* Aligns their tops */
+  gap: 2rem; /* Adds gap between globe and list on desktop */
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
@@ -138,6 +138,7 @@
   .intro-text {
     font-size: 1.8rem;
   }
+
   .repo-search-form {
     flex-direction: column;
     width: 100%;
@@ -147,10 +148,9 @@
     align-items: flex-start;
   }
   .globe-list-wrapper {
-    flex-direction: column; /* ⬅ Mobile: Stacks components vertically */
-    align-items: center; /* ⬅ Mobile: Centers components horizontally */
-    gap: 0; /* ⬅ Mobile: No gap between components */
-    padding: 0 1rem;
+    flex-direction: column; /* Mobile: Stacks components vertically */
+    align-items: center; /* Mobile: Centers components horizontally */
+    gap: 0; /* Mobile: No gap between components */
     height: auto;
   }
   .globe-container {

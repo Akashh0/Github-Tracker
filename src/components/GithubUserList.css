@@ -1,7 +1,7 @@
 .github-user-list {
   width: 100%;
   max-width: 450px;
-  height: auto;
+  height: auto; /* List height adjusts to its content on desktop */
   border: 1px solid rgba(255, 255, 255, 0.555);
   border-radius: 16px;
   background: rgba(20, 20, 20, 0.35);
@@ -69,9 +69,9 @@
 
 @media (max-width: 768px) {
   .github-user-list {
-    width: 90%; /* ⬅ Mobile: 90% width for better fit */
+    width: 90%; /* Mobile: Takes 90% width */
     max-width: 100%;
     margin-top: 0;
-    order: 2; /* ⬅ Renders the list component second */
+    order: 2; /* Ensures list is displayed second on mobile */
   }
 }
