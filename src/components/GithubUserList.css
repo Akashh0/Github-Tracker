@@ -1,52 +1,42 @@
-/* src/components/GitHubUserList.css */
-
 .github-user-list {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-style: italic;
-  position: relative;
-  width: 450px;
-  height: 650px;
+  width: 100%;
+  max-width: 450px;
+  height: auto;
   border: 1px solid rgba(255, 255, 255, 0.555);
   border-radius: 16px;
   background: rgba(20, 20, 20, 0.35);
   backdrop-filter: blur(10px);
   padding: 1.5rem;
   z-index: 2;
-  top: 110px;
-  right: 350px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
 }
 
 .list-title {
-  font-size: 1.2rem;
-  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-style: italic;
+  color: #fff;
   margin-bottom: 1rem;
-  text-align: center;
 }
 
 .user-list-box {
-  width: 100%;
   display: flex;
   flex-direction: column;
-  
-  justify-content: space-evenly;
   gap: 0.6rem;
-  flex-grow: 1;
+  margin-top: 1rem;
 }
 
 .user-entry {
   display: flex;
   align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.39);
-  border-radius: 8px;
-  overflow: hidden;
   gap: 10px;
   padding: 6px 10px;
   background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.39);
   border-radius: 8px;
   transition: background 0.2s ease;
 }
@@ -67,31 +57,21 @@
   font-size: 0.95rem;
   font-weight: 500;
   color: #fff;
-  flex: 1;
 }
 
 .user-location {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 0.8rem;
+  text-align: right;
   color: #aaa;
 }
 
-/* Mobile responsive fallback */
 @media (max-width: 768px) {
   .github-user-list {
     width: 90%;
-    height: auto;
-    margin: auto;
-  }
-
-  .user-entry {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
-
-  .user-name,
-  .user-location {
-    text-align: left;
-    width: 100%;
+    max-width: 100%;
+    margin-top: 1.5rem;
+    order: 2; /* 👈 this places it below the globe */
   }
 }
+

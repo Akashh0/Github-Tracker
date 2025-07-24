@@ -10,7 +10,6 @@ function Navbar() {
       </div>
       <div className="navbar-right">
         <a href="#" className="nav-link">Home</a>
-        <a href="#" className="nav-link">Tracker</a>
         <a href="#" className="nav-link">About</a>
         <a href="#" className="nav-link">Contact</a>
       </div>

@@ -3,22 +3,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 40px auto 0;
-  pointer-events: auto; 
-  bottom: 60px;
-  right: 90px;
-  width: 0%;
+  width: 100%;
+  max-width: 1000px;
+  bottom: 90px;
   height: 90vh;
   z-index: 2;
-  border: none;
-  background: transparent;
+  overflow: hidden; /* ⛔ prevents globe from spilling out of bounds */
 }
 
 .globe-container canvas {
-  width: 120% !important;
-  height: 120% !important;
-  pointer-events: auto; /* ensures interactivity */
+  width: 125% !important; /* ✔️ your custom zoom */
+  height: 125% !important;
+  pointer-events: auto;
   border-radius: 10px;
+  transform: translateX(-15.5%); /* 💡 shifts the globe left to re-center it visually */
 }
 
 .globe-wrapper {
@@ -30,10 +28,15 @@
   background: transparent;
 }
 
-
+/* 📱 Mobile View Fix */
 @media (max-width: 768px) {
-  .globe-container {
+    .globe-container {
     height: 60vh;
-    margin-top: 60px;
+    width: 100%;
+    order: 1; /* 👈 render first */
+  }
+  .globe-container canvas {
+    width: 100% !important;
+    height: 100% !important;
   }
 }
