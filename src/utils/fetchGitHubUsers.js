@@ -7,7 +7,7 @@ const headers = {
 
 export async function fetchRecentUsers(limit = 10) {
   try {
-    const res = await fetch(`http://localhost:5000/api/recent-users`);
+    const res = await fetch(`https://github-tracker-backend-j1tb.onrender.com/api/recent-users`);
     if (!res.ok) throw new Error("Backend API failed");
 
     const data = await res.json();

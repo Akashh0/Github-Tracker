@@ -12,7 +12,7 @@ export async function fetchRepoCommits(repoFullName) {
   }
 
   try {
-    const res = await fetch(`http://localhost:5000/api/repo-commits?repo=${repoFullName}`);
+    const res = await fetch(`https://github-tracker-backend-j1tb.onrender.com//api/repo-commits?repo=${repoFullName}`);
     if (!res.ok) {
       const errData = await res.json();
       throw new Error(`${res.status}: ${errData.error}`);

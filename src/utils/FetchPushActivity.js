@@ -8,7 +8,7 @@ const headers = {
 
 export async function fetchPushActivity() {
   try {
-    const res = await fetch("http://localhost:5000/api/push-activity");
+    const res = await fetch("https://github-tracker-backend-j1tb.onrender.com/api/push-activity");
     if (!res.ok) throw new Error("Failed to fetch push activity from backend");
 
     const data = await res.json();
