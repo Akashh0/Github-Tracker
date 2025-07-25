@@ -6,48 +6,17 @@ const headers = {
 };
 
 
-export async function fetchPushActivity(userLimit = 10) {
+export async function fetchPushActivity() {
   try {
-    const eventsRes = await fetch("https://api.github.com/events", { headers });
-    if (!eventsRes.ok) throw new Error("Failed to fetch global events");
-    const events = await eventsRes.json();
+    const res = await fetch("http://localhost:5000/api/push-activity");
+    if (!res.ok) throw new Error("Failed to fetch push activity from backend");
 
-    const hourlyCounts = Array(24).fill(0);
-
-    // Count global PushEvents
-    events.forEach((event) => {
-      if (event.type === "PushEvent") {
-        const hour = new Date(event.created_at).getUTCHours();
-        hourlyCounts[hour]++;
-      }
-    });
-
-    // Extract top unique usernames from global stream
-    const usernames = [...new Set(events.map(e => e.actor?.login))].slice(0, userLimit);
-
-    // Fetch push events for each user
-    for (const username of usernames) {
-      const userRes = await fetch(`https://api.github.com/users/${username}/events`, { headers });
-      if (!userRes.ok) continue;
-
-      const userEvents = await userRes.json();
-      userEvents.forEach((event) => {
-        if (event.type === "PushEvent") {
-          const hour = new Date(event.created_at).getUTCHours();
-          hourlyCounts[hour]++;
-        }
-      });
-    }
-
-    const finalData = hourlyCounts.map((count, hour) => ({
-      hour: `${hour}:00`,
-      pushes: count,
-    }));
-
-    console.log("📊 GitHub Push Activity:", finalData);
-    return finalData;
+    const data = await res.json();
+    console.log("📊 GitHub Push Activity (from backend):", data);
+    return data;
   } catch (err) {
-    console.error("❌ Error fetching push activity:", err);
+    console.error("❌ Error fetching push activity from backend:", err);
     return [];
   }
 }
+

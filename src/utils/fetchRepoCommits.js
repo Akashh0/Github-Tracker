@@ -12,23 +12,22 @@ export async function fetchRepoCommits(repoFullName) {
   }
 
   try {
-    const res = await fetch(`https://api.github.com/repos/${repoFullName}/commits`, { headers });
-
+    const res = await fetch(`http://localhost:5000/api/repo-commits?repo=${repoFullName}`);
     if (!res.ok) {
       const errData = await res.json();
-      throw new Error(`${res.status}: ${errData.message}`);
+      throw new Error(`${res.status}: ${errData.error}`);
     }
 
     const commits = await res.json();
 
-    return commits.slice(0, 10).map((commit) => ({
-      message: commit.commit.message,
-      author: commit.author?.login || "Unknown",
-      avatar: commit.author?.avatar_url || "",
-      date: commit.commit.author.date,
+    return commits.map((commit) => ({
+      message: commit.message,
+      author: commit.author || "Unknown",
+      avatar: commit.avatar || "",
+      date: commit.date,
     }));
   } catch (err) {
-    console.error("❌ Error fetching commits:", err.message);
+    console.error("❌ Error fetching commits from backend:", err.message);
     return [];
   }
 }
