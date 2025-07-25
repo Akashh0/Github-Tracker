@@ -21,7 +21,7 @@ function RepoSearch({ onSearch, commits }) {
 
   return (
     <div className="repo-search-box">
-      <h2 className="repo-search-heading">🔍 Search GitHub Repository Commits</h2>
+      <h2 className="repo-search-heading">Search your Favourite Repository!</h2>
       <form className="repo-search-form" onSubmit={handleSubmit}>
         <input
           type="text"
